@@ -1,0 +1,20 @@
+{
+    "name": "venneste/league-client-tools",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "lct\\": "src/lct/"
+        }
+    },
+    "authors": [
+        {
+            "name": "venneste"
+        }
+    ],
+    "require": {
+        "symfony/filesystem": "^7.3",
+        "ext-yaml": "*",
+        "ext-curl": "*",
+        "luverelle/pson": "^1.1"
+    }
+}

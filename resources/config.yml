@@ -1,0 +1,22 @@
+---
+# Поодерживаемые языки: rus - Русский, eng - Английский
+# -----
+# Supported languages: rus - Russian, eng - English
+language: 'rus'
+
+# Путь до папки Riot Games
+# -----
+# Path to Riot Games folder
+riot-games-path: 'C:\Riot Games'
+
+# Предпочитаемый сайт для мультипоиска (Lobby Revealer)
+# Значения: porofessor, opgg
+# -----
+# Preferred site for multisearch (Lobby Revealer)
+# Values: porofessor, opgg
+preferred-multisearch-site: 'porofessor'
+
+# Дебагер в логах: true - включить, false - выключить
+# Debugger in logs: true - enable, false - disable
+enable-debug: true
+...
