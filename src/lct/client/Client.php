@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace lct\client;
 
 use lct\client\http\RequestMethod;
-use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\Filesystem\Path;
 
 abstract class Client{
 
     protected ?ClientLockfile $lockfile;
 
-    /**
-     * @throws FileNotFoundException
-     * @param string $clientPath
-     */
     public function __construct(
         protected readonly string $clientPath
     ){
@@ -48,5 +43,22 @@ abstract class Client{
 
     protected function getLockfilePath() : string{
         return Path::join($this->clientPath, "lockfile");
+    }
+
+    protected function getHeader() : array{
+        return [
+            "Content-Type: application/json",
+            "Accept: application/json",
+        ];
+    }
+
+    protected function getCurlOptions() : array{
+        return [
+            CURLOPT_HTTPHEADER => $this->getHeader(),
+            CURLOPT_USERPWD => "riot:" . $this->lockfile->getPassword(),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
+        ];
     }
 }

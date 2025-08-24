@@ -67,21 +67,4 @@ class LeagueClient extends Client{
     public function getURL() : string{
         return Path::join($this->lockfile->getProtocol() . "://", "127.0.0.1:" . $this->lockfile->getPort());
     }
-
-    protected function getHeader() : array{
-        return [
-            "Content-Type: application/json",
-		    "Accept: application/json",
-        ];
-    }
-
-    protected function getCurlOptions() : array{
-        return [
-            CURLOPT_HTTPHEADER => $this->getHeader(),
-            CURLOPT_USERPWD => "riot:" . $this->lockfile->getPassword(),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false,
-        ];
-    }
 }
