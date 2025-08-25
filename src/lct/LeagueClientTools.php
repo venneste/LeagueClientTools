@@ -6,7 +6,6 @@ namespace lct;
 
 use lct\client\league\LeagueClient;
 use lct\config\YamlConfig;
-use lct\lang\Language;
 use lct\lang\LanguageManager;
 use lct\lang\TranslationKey as TK;
 use lct\log\Logger;
@@ -21,8 +20,8 @@ final class LeagueClientTools{
     private LeagueClient $client;
 
     public function __construct(){
-        $this->logger = new Logger($this);
         $this->config = new YamlConfig(Path::join(RESOURCES_PATH, "config.yml"));
+        $this->logger = new Logger(LanguageManager::getInstance()->getLanguage($this->config->getLanguage()));
         $this->client = new LeagueClient(Path::join($this->config->getRiotGamesPath(), "League of Legends"));
 
         $this->logger->setDebug($this->config->isDebug());
@@ -46,10 +45,6 @@ final class LeagueClientTools{
             $this->logger->error(TK::MULTISEARCH_ERROR);
             $this->logger->debug("Stack trace:" . PHP_EOL . $exception->getTraceAsString());
         }
-    }
-
-    public function getLanguage() : Language{
-        return LanguageManager::getInstance()->getLanguage($this->config->getLanguage());
     }
 
     /**

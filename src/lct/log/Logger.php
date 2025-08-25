@@ -6,8 +6,8 @@ namespace lct\log;
 
 use ErrorException;
 use JetBrains\PhpStorm\NoReturn;
+use lct\lang\Language;
 use lct\lang\TranslationKey;
-use lct\LeagueClientTools;
 use Throwable;
 
 final class Logger{
@@ -15,7 +15,7 @@ final class Logger{
     public const string TEXT_COLOR = "\e[39m";
 
     public function __construct(
-        private readonly LeagueClientTools $loader,
+        private readonly Language $language,
         private bool $debug = true
     ){
         set_exception_handler($this->handleExceptions(...));
@@ -23,7 +23,7 @@ final class Logger{
     }
 
     private function log(LogLevel $level, TranslationKey|string $message, array $params) : void{
-        $msg = $message instanceof TranslationKey ? $this->loader->getLanguage()->translate($message, $params) : $message;
+        $msg = $message instanceof TranslationKey ? $this->language->translate($message, $params) : $message;
 
         echo $level->getColor() . "[" . $level->value . "] " . self::TEXT_COLOR . $msg . PHP_EOL;
     }
