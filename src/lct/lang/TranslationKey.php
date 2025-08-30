@@ -20,7 +20,6 @@ enum TranslationKey : string{
     case DEBUG_CFG_LANG = "debug.config.lang";
     case DEBUG_CFG_RIOT_GAMES_PATH = "debug.config.riot_games_path";
     case DEBUG_CFG_PREF_MULTISEARCH = "debug.config.preferred_multisearch";
-    case DEBUG_LCU_DETECT = "debug.league_client.detect";
 
     /**
      * @return string[]

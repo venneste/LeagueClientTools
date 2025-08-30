@@ -22,10 +22,10 @@ final class Logger{
         set_error_handler($this->handleErrors(...));
     }
 
-    private function log(LogLevel $level, TranslationKey|string $message, array $params) : void{
+    private function log(LogLevel $level, TranslationKey|string $message, array $params, bool $nextLine = true) : void{
         $msg = $message instanceof TranslationKey ? $this->language->translate($message, $params) : $message;
 
-        echo $level->getColor() . "[" . $level->value . "] " . self::TEXT_COLOR . $msg . PHP_EOL;
+        echo $level->getColor() . "[" . $level->value . "] " . self::TEXT_COLOR . $msg . ($nextLine ? PHP_EOL : "");
     }
 
     #[NoReturn]
@@ -45,8 +45,8 @@ final class Logger{
         }
     }
 
-    public function info(TranslationKey|string $message, array $params = []) : void{
-        $this->log(LogLevel::INFO, $message, $params);
+    public function info(TranslationKey|string $message, array $params = [], bool $nextLine = true) : void{
+        $this->log(LogLevel::INFO, $message, $params, $nextLine);
     }
 
     public function error(TranslationKey|string $message, array $params = []) : void{
@@ -57,6 +57,10 @@ final class Logger{
         if($this->debug){
             $this->log(LogLevel::DEBUG, $message, $params);
         }
+    }
+
+    public function readLine() : string{
+        return (string) fgets(STDIN);
     }
 
     public function setDebug(bool $debug) : void{
